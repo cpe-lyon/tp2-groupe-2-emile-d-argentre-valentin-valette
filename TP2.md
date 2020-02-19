@@ -52,15 +52,17 @@ Pour créer le dossier `script` on réalise la commande `mkdir script`, puis on 
 ### Réponse :
 Pour créer le fichier il faut réaliser la commande `touch testpwd.sh`, puis pour autoriser l'exécution du fichier il faut réaliser la commande `chmod u+x testpwd.sh`. <br/>
 Enfin il suffit de d'ouvrir le fichier avec la commmande `nano testpwd.sh` et d'y ajouter le scripts suivant : <br/>
-``` #!/bin/bash <br/>
- password="123456789" <br/>
- read -s -p 'Entrez le mot de passe :' pass <br/>
- echo ' ' <br/>
- if [ $pass = $password ]; then <br/>
-         echo 'Bon mot de passe' <br/>
- else
-         echo 'Mauvais mot de passe' <br/>
- fi <br/> ```
+```bash
+#!/bin/bash <br/>
+password="123456789" <br/>
+read -s -p 'Entrez le mot de passe :' pass <br/>
+echo ' ' <br/>
+if [ $pass = $password ]; then <br/>
+        echo 'Bon mot de passe' <br/>
+else
+        echo 'Mauvais mot de passe' <br/>
+fi <br/> 
+```
 
 Pour enregistrer le fichier il faut utiliser la raccourcis `CTRL + X`.
 
@@ -68,38 +70,42 @@ Pour enregistrer le fichier il faut utiliser la raccourcis `CTRL + X`.
 
 ### Question : 
 Ecrivez un script qui prend un paramètre et utilise la fonction suivante pour vérifier que ce paramètre est un nombre réel :
-``` function is_number() <br/>
- { <br/>
- re='^[+-]?[0-9]+([.][0-9]+)?$' <br/>
- if ! [[ $1 =~ $re ]] ; then <br/>
- return 1 <br/>
- else <br/>
+```bash
+function is_number() <br/>
+{ <br/>
+re='^[+-]?[0-9]+([.][0-9]+)?$' <br/>
+if ! [[ $1 =~ $re ]] ; then <br/>
+return 1 <br/>
+else <br/>
 return 0 <br/>
- fi <br/>
- } ``` <br/> 
+fi <br/>
+} 
+``` <br/> 
 Il affichera un message d’erreur dans le cas contraire.
 
 ### Réponse :
 
 Le script suivant nous permet de vérifier si le nombre est un nombre réel ou non : 
-```#!/bin/bash <br/>
- function is_number() <br/>
- {	<br/>
- re='^[+-]?[0-9]+([.][0-9]+)?$'	<br/>
- if ! [[ $1 =~ $re ]] ; then	<br/>
-         return 1	<br/>
- else	<br/>
-        return 0	<br/>
- fi	<br/>
- }	<br/>
+```bash
+#!/bin/bash <br/>
+function is_number() <br/>
+{	<br/>
+re='^[+-]?[0-9]+([.][0-9]+)?$'	<br/>
+if ! [[ $1 =~ $re ]] ; then	<br/>
+        return 1	<br/>
+else	<br/>
+       return 0	<br/>
+fi	<br/>
+}	<br/>
 
- read -p "Saisir un nombre réel: " nombre	<br/>
- echo ' '	<br/>
- if is_number $nombre ; then	<br/>
-         echo 'Le nombre est bien un nombre réel'	<br/>
- else	<br/>
-         echo 'Le nombre n est pas un nombre réel'	<br/>
- fi	<br/>```
+read -p "Saisir un nombre réel: " nombre	<br/>
+echo ' '	<br/>
+if is_number $nombre ; then	<br/>
+        echo 'Le nombre est bien un nombre réel'	<br/>
+else	<br/>
+        echo 'Le nombre n est pas un nombre réel'	<br/>
+fi	
+``` <br/>
 # Excercice 4
 
 ### Question : 
