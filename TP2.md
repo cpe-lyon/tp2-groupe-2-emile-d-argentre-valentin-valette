@@ -106,10 +106,199 @@ else	<br/>
         echo 'Le nombre n est pas un nombre réel'	<br/>
 fi	
 ``` <br/>
+
 # Excercice 4
 
 ### Question : 
 Écrivez un script qui vérifie l’existence d’un utilisateur dont le nom est donné en paramètre du script. Si le script est appelé sans nom d’utilisateur, il affiche le message : ”Utilisation : nom_du_script nom_utilisateur”, où nom_du_script est le nom de votre script récupéré automatiquement (si vous changez le nom de votre script, le message doit changer automatiquement)
 
 ### Réponse : 
+
+Le script suivant nous permet de tester si un utilisateur existe en le passant en paramètre du script.
+```bash
+#!/bin/bash <br/>
+
+if [[ "$1" == "" ]]; then <br/>
+        echo "Utilisation : $0 nom_utilisateur" <br/>
+        exit <br/>
+fi <br/>
+users=`cut -d : -f1 /etc/passwd | grep ^$1$ | wc -l` <br/>
+
+if [[ $users -eq 0 ]]; then <br/>
+        echo "L'utilisateur $1 n'existe pas !!" <br/>
+else <br/>
+        echo "L'utilisateur $1 existe !!" <br/>
+fi <br/>
+
+``` <br/>
+
+# Exercice 5
+
+### Question :
+Écrivez un programme qui calcule le factorielle d’un entier naturel passé en paramètre (on supposera que l’utilisateur saisit toujours un entier naturel).
+
+### Réponse :
+
+Le script ci dessous permet de calculer le factorielle d'un entier : 
+```bash
+#!/bin/bash <br/>
+
+i=1; <br/>
+resultat=1 <br/>
+for i in $(seq 1 $1); do <br/>
+        resultat=$((resultat*i)) <br/>
+done <br/>
+echo $resultat <br/>
+
+``` <br/>
+
+# Exercice 6 
+
+### Question: 
+Écrivez un script qui génère un nombre aléatoire entre 1 et 1000 et demande à l’utilisateur de le deviner. Le programme écrira ”C’est plus !”, ”C’est moins !” ou ”Gagné !” selon les cas (vous utiliserez $RANDOM).
+
+### Réponse :
+A l'aide du script suivant on pour réaliser le jeu du juste prix :
+```bash
+
+#!/bin/bash <br/>
+
+nb=$((RANDOM%1000)) <br/>
+echo "$nb" <br/>
+read -p "Essayez de deviner le nombre choisit aléatoirement par la machine. Saissisez votre proposition" nb_joueur <br/>
+while [[ $nb_joueur != $nb ]]; do <br/>
+if [[ $nb_joueur < $nb ]]; then <br/>
+        read -p "Ce n'est pas le bon chiffre, c'est plus ! " nb_joueur <br/>
+else <br/>
+        read -p "Ce n'est pas le bon chiffre, c'est moins ! " nb_joueur <br/>
+fi <br/>
+done <br/>
+echo "Bravo ! Le nombre $nb_joueur est le nombre qu'il fallait trouver" <br/>
+
+``` <br/>
+
+# Exercice 7
+
+### Questions:
+1. Écrivez un script qui prend en paramètres trois entiers (entre -100 et +100) et affiche le min, le max
+et la moyenne. Vous pouvez réutiliser la fonction de l’exercice 3 pour vous assurer que les paramètres
+sont bien des entiers.
+2. Généralisez le programme à un nombre quelconque de paramètres (pensez à SHIFT)
+3. Modifiez votre programme pour que les notes ne soient plus données en paramètres, mais saisies et
+stockées au fur et à mesure dans un tableau.
+
+### Réponses : 
+1. Le scripts suivant permet de prendre en paramètre trois nombre et de renvoyer le minimum, le maximum et la moyenne :
+```bash
+#!/bin/bash <br/>
+
+#--------MOY---------------- <br/>
+
+moy=$((($1+$2+$3)/3)) <br/>
+
+#---------MAX--------------- <br/>
+
+if (("$1" < "$2")) ; then <br/>
+min=$1 <br/>
+else <br/>
+min=$2 <br/>
+fi <br/>
+
+if (("$min" < "$3")) ; then <br/>
+min=$min <br/>
+else <br/>
+min=$3 <br/>
+fi <br/>
+
+#------------MAX------------- <br/>
+
+if (("$1" > "$2")) ; then <br/>
+max=$1 <br/>
+else <br/>
+max=$2 <br/>
+fi <br/>
+
+if (("$max" > "$3")) ; then <br/>
+max=$max <br/>
+else <br/>
+max=$3 <br/>
+fi <br/>
+
+echo "La moyenne est $moy, le minimum est $min et le maximum est $max" <br/>
+``` <br/>
+
+2. Le script suivant nous permet d'obtenir la moyenne, le minimum et le maximum d'un nombre non défini d'argument:
+
+```bash
+#!/bin/bash <br/>
+
+min=100 <br/> 
+max=-100 <br/>
+
+for arg in $@ <br/>
+do <br/>
+nb_arg=$((nb_arg + 1)) <br/>
+tot=$((tot + arg)) <br/>
+if (("$min" < "$arg")) ; then <br/>
+min=$min <br/>
+else <br/>
+min=$arg <br/>
+fi <br/>
+if (("$max" > "$arg")) ; then <br/>
+max=$max <br/>
+else <br/>
+max=$arg <br/>
+fi <br/>
+
+done <br/>
+
+moy=$(($tot / $nb_arg)) <br/>
+echo "La moyenne est $moy, le minimum est $min et le maximum est $max" <br/>
+
+``` <br/>
+
+3. Le script suivant nous permet de remplir un tableau de nombre entier de calculer le minimum, le maximum et la moyenne de cette série de nombre :
+```bash
+
+#!/bin/bash <br/>
+
+nb_arg=0 <br/>
+tot=0 <br/>
+
+declare -a NB='()' <br/>
+
+while [[ $saisie != "STOP" ]]; do <br/>
+
+read -p "Entrer un nombre ou STOP pour terminé la série" saisie <br/>
+
+if [[ $saisie != "STOP" ]]; then <br/>
+NB[${#NB[@]}]=$saisie <br/>
+fi <br/>
+done <br/>
+min=${NB[0]} <br/>
+max=${NB[0]} <br/>
+
+for nb in "${NB[@]}";do <br/>
+
+nb_arg=$((nb_arg + 1)) <br/>
+tot=$((tot + nb)) <br/>
+if (("$min" < "$nb")) ; then <br/>
+min=$min <br/>
+else <br/>
+min=$nb <br/>
+fi <br/>
+if (("$max" > "$nb")) ; then <br/>
+max=$max <br/>
+else <br/>
+max=$nb <br/>
+fi <br/>
+done <br/>
+
+moy=$(($tot / $nb_arg)) <br/>
+
+echo "La moyenne est $moy, le minimum est $min et le maximum est $max" <br/>
+
+``` <br/>
+
+
 
