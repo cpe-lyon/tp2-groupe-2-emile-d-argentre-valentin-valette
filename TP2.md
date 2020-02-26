@@ -19,7 +19,7 @@ unset ?
 dossier personnel d’après bash)
 
 ### Réponses :
-1. Pour trouver le dossier bash qui trouve les commandes tappées par l'utilisateur il faut réaliser la commande `echo $PATH` ou `printenv PATH`. <br/>
+1. Pour trouver le dossier bash qui trouve les commandes tappées par l'utilisateur il faut réaliser la commande `echo $PATH` ou `printenv PATH`. 
 On otient le résultat suivant : > /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
 2. La variable d'environnement `~` permet à la commande cd d'accéder directement à notre répertoire personnel.
 3. Pour chaque variable il faut réaliser la commande `ècho $nom_variable` pour connaître le rôles de ses variables.
@@ -38,8 +38,8 @@ On otient le résultat suivant : > /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr
 # Programation BASH
 
 ### Questions : 
-Vous enregistrerez vos scripts dans un dossier script que vous créerez dans votre répertoire personnel. <br/>
-Tous les scripts sont bien entendu à tester.<br/>
+Vous enregistrerez vos scripts dans un dossier script que vous créerez dans votre répertoire personnel. 
+Tous les scripts sont bien entendu à tester.
 Ajoutez le chemin vers script à votre PATH de manière permanente.
 
 ### Réponses : 
@@ -50,18 +50,18 @@ Pour créer le dossier `script` on réalise la commande `mkdir script`, puis on 
 Écrivez un script testpwd.sh qui demande de saisir un mot de passe et vérifie s’il correspond ou non aucontenu d’une variable PASSWORD dont le contenu est codé en dur dans le script. Le mot de passe saisi parl’utilisateur ne doit pas s’afficher.
 
 ### Réponse :
-Pour créer le fichier il faut réaliser la commande `touch testpwd.sh`, puis pour autoriser l'exécution du fichier il faut réaliser la commande `chmod u+x testpwd.sh`. <br/>
-Enfin il suffit de d'ouvrir le fichier avec la commmande `nano testpwd.sh` et d'y ajouter le scripts suivant : <br/>
+Pour créer le fichier il faut réaliser la commande `touch testpwd.sh`, puis pour autoriser l'exécution du fichier il faut réaliser la commande `chmod u+x testpwd.sh`. 
+Enfin il suffit de d'ouvrir le fichier avec la commmande `nano testpwd.sh` et d'y ajouter le scripts suivant : 
 ```bash
-#!/bin/bash <br/>
-password="123456789" <br/>
-read -s -p 'Entrez le mot de passe :' pass <br/>
-echo ' ' <br/>
-if [ $pass = $password ]; then <br/>
-        echo 'Bon mot de passe' <br/>
+#!/bin/bash 
+password="123456789" 
+read -s -p 'Entrez le mot de passe :' pass 
+echo ' ' 
+if [ $pass = $password ]; then 
+        echo 'Bon mot de passe' 
 else
-        echo 'Mauvais mot de passe' <br/>
-fi <br/> 
+        echo 'Mauvais mot de passe' 
+fi  
 ```
 
 Pour enregistrer le fichier il faut utiliser la raccourcis `CTRL + X`.
@@ -71,41 +71,41 @@ Pour enregistrer le fichier il faut utiliser la raccourcis `CTRL + X`.
 ### Question : 
 Ecrivez un script qui prend un paramètre et utilise la fonction suivante pour vérifier que ce paramètre est un nombre réel :
 ```bash
-function is_number() <br/>
-{ <br/>
-re='^[+-]?[0-9]+([.][0-9]+)?$' <br/>
-if ! [[ $1 =~ $re ]] ; then <br/>
-return 1 <br/>
-else <br/>
-return 0 <br/>
-fi <br/>
+function is_number() 
+{ 
+re='^[+-]?[0-9]+([.][0-9]+)?$' 
+if ! [[ $1 =~ $re ]] ; then 
+return 1 
+else 
+return 0 
+fi 
 } 
-``` <br/> 
+```  
 Il affichera un message d’erreur dans le cas contraire.
 
 ### Réponse :
 
 Le script suivant nous permet de vérifier si le nombre est un nombre réel ou non : 
 ```bash
-#!/bin/bash <br/>
-function is_number() <br/>
-{	<br/>
-re='^[+-]?[0-9]+([.][0-9]+)?$'	<br/>
-if ! [[ $1 =~ $re ]] ; then	<br/>
-        return 1	<br/>
-else	<br/>
-       return 0	<br/>
-fi	<br/>
-}	<br/>
-
-read -p "Saisir un nombre réel: " nombre	<br/>
-echo ' '	<br/>
-if is_number $nombre ; then	<br/>
-        echo 'Le nombre est bien un nombre réel'	<br/>
-else	<br/>
-        echo 'Le nombre n est pas un nombre réel'	<br/>
+#!/bin/bash 
+function is_number() 
+{	
+re='^[+-]?[0-9]+([.][0-9]+)?$'	
+if ! [[ $1 =~ $re ]] ; then	
+        return 1	
+else	
+       return 0	
 fi	
-``` <br/>
+}	
+
+read -p "Saisir un nombre réel: " nombre	
+echo ' '	
+if is_number $nombre ; then	
+        echo 'Le nombre est bien un nombre réel'	
+else	
+        echo 'Le nombre n est pas un nombre réel'	
+fi	
+``` 
 
 # Excercice 4
 
@@ -116,21 +116,21 @@ fi
 
 Le script suivant nous permet de tester si un utilisateur existe en le passant en paramètre du script.
 ```bash
-#!/bin/bash <br/>
+#!/bin/bash 
 
-if [[ "$1" == "" ]]; then <br/>
-        echo "Utilisation : $0 nom_utilisateur" <br/>
-        exit <br/>
-fi <br/>
-users=`cut -d : -f1 /etc/passwd | grep ^$1$ | wc -l` <br/>
+if [[ "$1" == "" ]]; then 
+        echo "Utilisation : $0 nom_utilisateur" 
+        exit 
+fi 
+users=`cut -d : -f1 /etc/passwd | grep ^$1$ | wc -l` 
 
-if [[ $users -eq 0 ]]; then <br/>
-        echo "L'utilisateur $1 n'existe pas !!" <br/>
-else <br/>
-        echo "L'utilisateur $1 existe !!" <br/>
-fi <br/>
+if [[ $users -eq 0 ]]; then 
+        echo "L'utilisateur $1 n'existe pas !!" 
+else 
+        echo "L'utilisateur $1 existe !!" 
+fi 
 
-``` <br/>
+``` 
 
 # Exercice 5
 
@@ -141,16 +141,16 @@ fi <br/>
 
 Le script ci dessous permet de calculer le factorielle d'un entier : 
 ```bash
-#!/bin/bash <br/>
+#!/bin/bash 
 
-i=1; <br/>
-resultat=1 <br/>
-for i in $(seq 1 $1); do <br/>
-        resultat=$((resultat*i)) <br/>
-done <br/>
-echo $resultat <br/>
+i=1; 
+resultat=1 
+for i in $(seq 1 $1); do 
+        resultat=$((resultat*i)) 
+done 
+echo $resultat 
 
-``` <br/>
+``` 
 
 # Exercice 6 
 
@@ -161,21 +161,21 @@ echo $resultat <br/>
 A l'aide du script suivant on pour réaliser le jeu du juste prix :
 ```bash
 
-#!/bin/bash <br/>
+#!/bin/bash 
 
-nb=$((RANDOM%1000)) <br/>
-echo "$nb" <br/>
-read -p "Essayez de deviner le nombre choisit aléatoirement par la machine. Saissisez votre proposition" nb_joueur <br/>
-while [[ $nb_joueur != $nb ]]; do <br/>
-if [[ $nb_joueur < $nb ]]; then <br/>
-        read -p "Ce n'est pas le bon chiffre, c'est plus ! " nb_joueur <br/>
-else <br/>
-        read -p "Ce n'est pas le bon chiffre, c'est moins ! " nb_joueur <br/>
-fi <br/>
-done <br/>
-echo "Bravo ! Le nombre $nb_joueur est le nombre qu'il fallait trouver" <br/>
+nb=$((RANDOM%1000)) 
+echo "$nb" 
+read -p "Essayez de deviner le nombre choisit aléatoirement par la machine. Saissisez votre proposition" nb_joueur 
+while [[ $nb_joueur != $nb ]]; do 
+if [[ $nb_joueur < $nb ]]; then 
+        read -p "Ce n'est pas le bon chiffre, c'est plus ! " nb_joueur 
+else 
+        read -p "Ce n'est pas le bon chiffre, c'est moins ! " nb_joueur 
+fi 
+done 
+echo "Bravo ! Le nombre $nb_joueur est le nombre qu'il fallait trouver" 
 
-``` <br/>
+``` 
 
 # Exercice 7
 
@@ -190,115 +190,115 @@ stockées au fur et à mesure dans un tableau.
 ### Réponses : 
 1. Le scripts suivant permet de prendre en paramètre trois nombre et de renvoyer le minimum, le maximum et la moyenne :
 ```bash
-#!/bin/bash <br/>
+#!/bin/bash 
 
-#--------MOY---------------- <br/>
+#--------MOY---------------- 
 
-moy=$((($1+$2+$3)/3)) <br/>
+moy=$((($1+$2+$3)/3)) 
 
-#---------MAX--------------- <br/>
+#---------MAX--------------- 
 
-if (("$1" < "$2")) ; then <br/>
-min=$1 <br/>
-else <br/>
-min=$2 <br/>
-fi <br/>
+if (("$1" < "$2")) ; then 
+min=$1 
+else 
+min=$2 
+fi 
 
-if (("$min" < "$3")) ; then <br/>
-min=$min <br/>
-else <br/>
-min=$3 <br/>
-fi <br/>
+if (("$min" < "$3")) ; then 
+min=$min 
+else 
+min=$3 
+fi 
 
-#------------MAX------------- <br/>
+#------------MAX------------- 
 
-if (("$1" > "$2")) ; then <br/>
-max=$1 <br/>
-else <br/>
-max=$2 <br/>
-fi <br/>
+if (("$1" > "$2")) ; then 
+max=$1 
+else 
+max=$2 
+fi 
 
-if (("$max" > "$3")) ; then <br/>
-max=$max <br/>
-else <br/>
-max=$3 <br/>
-fi <br/>
+if (("$max" > "$3")) ; then 
+max=$max 
+else 
+max=$3 
+fi 
 
-echo "La moyenne est $moy, le minimum est $min et le maximum est $max" <br/>
-``` <br/>
+echo "La moyenne est $moy, le minimum est $min et le maximum est $max" 
+``` 
 
 2. Le script suivant nous permet d'obtenir la moyenne, le minimum et le maximum d'un nombre non défini d'argument:
 
 ```bash
-#!/bin/bash <br/>
+#!/bin/bash 
 
-min=100 <br/> 
-max=-100 <br/>
+min=100  
+max=-100 
 
-for arg in $@ <br/>
-do <br/>
-nb_arg=$((nb_arg + 1)) <br/>
-tot=$((tot + arg)) <br/>
-if (("$min" < "$arg")) ; then <br/>
-min=$min <br/>
-else <br/>
-min=$arg <br/>
-fi <br/>
-if (("$max" > "$arg")) ; then <br/>
-max=$max <br/>
-else <br/>
-max=$arg <br/>
-fi <br/>
+for arg in $@ 
+do 
+nb_arg=$((nb_arg + 1)) 
+tot=$((tot + arg)) 
+if (("$min" < "$arg")) ; then 
+min=$min 
+else 
+min=$arg 
+fi 
+if (("$max" > "$arg")) ; then 
+max=$max 
+else 
+max=$arg 
+fi 
 
-done <br/>
+done 
 
-moy=$(($tot / $nb_arg)) <br/>
-echo "La moyenne est $moy, le minimum est $min et le maximum est $max" <br/>
+moy=$(($tot / $nb_arg)) 
+echo "La moyenne est $moy, le minimum est $min et le maximum est $max" 
 
-``` <br/>
+``` 
 
 3. Le script suivant nous permet de remplir un tableau de nombre entier de calculer le minimum, le maximum et la moyenne de cette série de nombre :
 ```bash
 
-#!/bin/bash <br/>
+#!/bin/bash 
 
-nb_arg=0 <br/>
-tot=0 <br/>
+nb_arg=0 
+tot=0 
 
-declare -a NB='()' <br/>
+declare -a NB='()' 
 
-while [[ $saisie != "STOP" ]]; do <br/>
+while [[ $saisie != "STOP" ]]; do 
 
-read -p "Entrer un nombre ou STOP pour terminé la série" saisie <br/>
+read -p "Entrer un nombre ou STOP pour terminé la série" saisie 
 
-if [[ $saisie != "STOP" ]]; then <br/>
-NB[${#NB[@]}]=$saisie <br/>
-fi <br/>
-done <br/>
-min=${NB[0]} <br/>
-max=${NB[0]} <br/>
+if [[ $saisie != "STOP" ]]; then 
+NB[${#NB[@]}]=$saisie 
+fi 
+done 
+min=${NB[0]} 
+max=${NB[0]} 
 
-for nb in "${NB[@]}";do <br/>
+for nb in "${NB[@]}";do 
 
-nb_arg=$((nb_arg + 1)) <br/>
-tot=$((tot + nb)) <br/>
-if (("$min" < "$nb")) ; then <br/>
-min=$min <br/>
-else <br/>
-min=$nb <br/>
-fi <br/>
-if (("$max" > "$nb")) ; then <br/>
-max=$max <br/>
-else <br/>
-max=$nb <br/>
-fi <br/>
-done <br/>
+nb_arg=$((nb_arg + 1)) 
+tot=$((tot + nb)) 
+if (("$min" < "$nb")) ; then 
+min=$min 
+else 
+min=$nb 
+fi 
+if (("$max" > "$nb")) ; then 
+max=$max 
+else 
+max=$nb 
+fi 
+done 
 
-moy=$(($tot / $nb_arg)) <br/>
+moy=$(($tot / $nb_arg)) 
 
-echo "La moyenne est $moy, le minimum est $min et le maximum est $max" <br/>
+echo "La moyenne est $moy, le minimum est $min et le maximum est $max" 
 
-``` <br/>
+``` 
 
 
 
